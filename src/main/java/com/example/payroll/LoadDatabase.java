@@ -20,6 +20,11 @@ public class LoadDatabase {
                     "thief")));
             log.info("Preloading " + repository.findAll());
             log.info("Preloading " + repository.count());
+            while (true) {
+                Thread.sleep(5000);
+                log.info("Preloading " + repository.findAll());
+                log.info("Preloading " + repository.count());
+            }
         };
     }
 }
