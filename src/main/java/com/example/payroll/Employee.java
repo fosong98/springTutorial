@@ -8,13 +8,15 @@ import java.util.Objects;
 @Entity
 public class Employee {
     private @Id @GeneratedValue Long id;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String role;
 
     public Employee() {}
 
-    public Employee(String name, String role) {
-        this.name = name;
+    public Employee(String firstName, String lastName, String role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.role = role;
     }
 
@@ -27,11 +29,31 @@ public class Employee {
     }
 
     public String getName() {
-        return name;
+
+        return this.firstName + " " + this.lastName;
+    }
+
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        String[] parts = name.split(" ");
+        this.firstName = parts[0];
+        this.lastName = parts[1];
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getRole() {
@@ -44,7 +66,7 @@ public class Employee {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.name, this.role);
+        return Objects.hash(this.id, this.firstName, this.lastName, this.role);
     }
 
     @Override
@@ -57,9 +79,9 @@ public class Employee {
             Employee employee = (Employee) obj;
 
             boolean isIdEqual = this.id == employee.id;
-            boolean isNameEqual = this.name == employee.name;
+            boolean isNameEqual = this.firstName == employee.firstName
+                    && this.lastName == employee.lastName;
             boolean isRoleEqual = this.role == employee.role;
-
             return isIdEqual && isNameEqual && isRoleEqual;
         }
     }
@@ -67,8 +89,8 @@ public class Employee {
     @Override
     public String toString() {
         String str =
-                String.format("Employee{id=%d, name=\'%s\', role=\'%s\'}",
-                this.id, this.name, this.role);
+                String.format("Employee{id=%d, firstName=\'%s\', lastName=\'%s\', role=\'%s\'}",
+                this.id, this.firstName, this.lastName, this.role);
 
         return str;
     }
